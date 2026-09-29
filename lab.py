@@ -1,5 +1,5 @@
 # lab.py
-# الملف الرئيسي لتشغيل المختبر الهجين، مع ميزة التحذيرات والحفظ الدائم في ملف نصي
+# الملف الرئيسي لتشغيل المختبر الهجين، الحفظ الدائم، وقراءة السجل وعرضه
 
 from math_rules import calculate_ratio, safe_divide
 from validator_rules import enforce_strict_bounds
@@ -33,10 +33,6 @@ def run_hybrid_system():
             normal_msg = f"✅ الحالة (العملية {i}): ضمن النطاق الآمن تماماً."
             audit_history.append(normal_msg)
 
-    print("\n--- طباعة السجل على الشاشة ---")
-    for record in audit_history:
-        print(record)
-
     # حفظ السجل بشكل دائم في ملف نصي (Audit Log File)
     log_filename = "audit_log.txt"
     with open(log_filename, "w", encoding="utf-8") as log_file:
@@ -44,8 +40,16 @@ def run_hybrid_system():
         for record in audit_history:
             log_file.write(record + "\n")
     
-    print(f"\n--- تم بنجاح حفظ السجل بالكامل في الملف: {log_filename} ---")
+    print(f"\n--- تم بنجاح حفظ السجل في الملف: {log_filename} ---")
+    
+    # قراءة الملف الذي تم حفظه وعرض محتواه على الشاشة للتأكيد
+    print("\n--- قراءة محتوى ملف السجل (Audit Log Content) ---")
+    with open(log_filename, "r", encoding="utf-8") as log_file:
+        content = log_file.read()
+        print(content)
+    
+    print("--- تم الانتهاء من دورة العمل بنجاح ---")
 
 if __name__ == "__main__":
     run_hybrid_system()
- 
+
